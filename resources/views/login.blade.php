@@ -132,7 +132,7 @@
                             </div>
                             <div class="row">
                                 <br>
-                                <p style="font-family: Quicksand"><strong>SIBIMA tersedia dalam versi Android <br> (beta version)</strong></p>
+                                <p style="font-family: Quicksand; color: black" class="" ><strong>SIBIMA tersedia dalam versi Android <br> (beta version)</strong></p>
                                 <a style="font-family: Quicksand" href="https://feylaboratory.xyz/sibima/">Download SIBIMA MOBILE</a>
                             </div>
                         </form>
