@@ -1,0 +1,67 @@
+# Hide Web Server Version
+/etc/apache2/apache2.conf
+# add this
+ServerSignature Off
+ServerTokens Prod
+
+## Mod_security
+$ sudo apt-get install libapache2-modsecurity
+$ sudo a2enmod security2
+$ sudo /etc/init.d/apache2 force-reload
+
+# Mod_Evasive
+$ sudo apt-get install libapache2-mod-evasive
+$ sudo a2enmod evasive
+
+# Security Reference
+https://www.maketecheasier.com/mod-evasive-protect-ddos/
+https://www.maketecheasier.com/securing-apache-ubuntu/
+http://www.fail2ban.org/wiki/index.php/MANUAL_0_8
+https://www.rosehosting.com/blog/how-to-install-mod_security-and-mod_evasive-on-an-ubuntu-14-04-vps/
+
+# Limit large Request 10MB
+LimitRequestBody 10000000
+
+#Secure Apache From Clickjacking Attack
+Add the following line inside Directory /var/www/html/:
+
+    #HTTPOnly Flag
+     Header always append X-Frame-Options SAMEORIGIN
+     Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure
+
+    Secure Apache from an XSS Attack
+     Header set X-XSS-Protection "1; mode=block"
+
+
+## Fail2ban
+sudo apt-get install iptables-persistent
+sudo apt-get install gamin
+
+
+                DocumentRoot /var/www/sibima/public
+                SetEnvIfNoCase User-Agent "^ApacheBench/2.3" bad_bot
+
+                <Directory /var/www/sibima>
+                        AllowOverride All
+                        Deny from env=bad_bot
+                </Directory>
+
+sudo pico /etc/php/7.0/cli/php.ini	
+upload_max_filesize = 10M
+
+    The newest php version installed on server does not allow global settings (such as execution time, max upload filesize, max post file size, etc.) to be changed.
+
+Folow these steps to resolve the issue:
+
+    Eval phpinfo();
+    Search for 'Scan this dir for additional .ini files' text in phpinfo() output
+    It will be something like this /etc/php5/apache2/conf.d
+    Create your user.ini file inside the dir. (/etc/php5/apache2/conf.d/user.ini)
+    Use this ini file for custom settings.
+    Restart the server
+
+File /etc/php5/apache2/conf.d/user.ini
+
+post_max_size = 90M
+upload_max_filesize = 50M
+http://stackoverflow.com/questions/14327409/changes-to-upload-max-filesize-in-ubunutu-php-ini-will-not-take-effect

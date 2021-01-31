@@ -1,0 +1,490 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap');
+@import url(http://fonts.googleapis.com/earlyaccess/amiri.css);
+
+body{
+  font-family: 'Quicksand', sans-serif;
+  margin: 0px;
+  padding: 0px;
+  background:  url("") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+}
+
+@media (min-width: 0px) and (max-width: 768px) {
+  body {
+    background:  url("") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+
+.form-control-borderless {
+  border: none;
+}
+
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  top: 0;
+  width: 100%;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #4CAF50;
+}
+
+body{
+   font-family:montserrat;
+}
+input{
+  text-align: center;
+   font-weight: bold;
+   height: 35px;
+   border-radius: 5px;
+   outline: none;
+   border: none;
+   background: #F6F7F9;
+   color: #748194;
+   font-size: 14px;
+}
+th{
+  font: montserrat;
+}
+
+.btnTheme{
+background-color: #005082;
+color: white;
+border: none;
+padding-left: 15px;
+padding-right: 15px;
+padding-top: 5px;
+padding-bottom: 5px;
+font-family: montserrat;
+text-align: center;
+text-decoration: none;
+font-size: 12px;
+border-radius: 30px;
+}
+
+
+.header_style{
+  background-color: #fff;
+  color: #00B0FF;
+  padding: 10px;
+  text-align: center;
+  font-family: montserrat;
+  width: auto;
+}
+
+.btnTheme:hover{
+  background-color: #00bcd4;
+}
+
+#tb_peserta{
+  font-family: 'Quicksand', sans-serif;
+  border-collapse: collapse;
+  border-spacing: 1;
+  border-style:solid;
+ background-color:white;
+ border-radius:10px;
+ overflow:hidden;
+ border-color: black;
+ /* position:relative; */
+}
+
+#tb_peserta th{
+  padding: 10px;
+  background-color: #00B0FF;
+  color:white;
+  height: auto;
+  font: montserrat;
+}
+#tb_peserta tr{
+  /* border-bottom:1px solid #ddd; */
+}
+
+#tb_peserta td{
+  max-height: 10px;
+  padding-left: 7px;
+  padding-right: 7px;
+  border-color: #000;
+}
+#tb_peserta tr:hover{
+  background-color: #ddd;
+  /* max-height: 10px; */
+}
+.find{
+  font-family:montserrat;
+  margin-top:5px;
+  margin-bottom:5px;
+}
+/* aaaaaaaaa */
+
+/*
+* The r-text-field component
+*/
+
+/*
+The component will reset input browser styles
+*/
+
+.r-text-field{
+  --uiTextFieldPlaceholderColor: var(--textFieldPlaceholderColor);
+  font-family: inherit;
+  text-align: left;
+  border-radius: 0;
+  border-style: solid;
+}
+
+.r-text-field::-webkit-input-placeholder{
+  color: var(--uiTextFieldPlaceholderColor);
+}
+
+.r-text-field::-moz-placeholder{
+  opacity: 1;
+  color: var(--uiTextFieldPlaceholderColor);
+}
+
+.r-text-field:invalid{
+  outline: none;
+  box-shadow: none;
+}
+
+.r-button::-moz-focus-inner,
+.r-button[type="button"]::-moz-focus-inner,
+.r-button[type="reset"]::-moz-focus-inner,
+.r-button[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+
+/*
+* The a-field component
+*/
+
+/*
+ 1. The --aFieldHeight option defines an input height. And this option is needed for calculations of a hint final position
+ 2. The --aFieldHintFinalCoordinate option defines calculations of the final Y-axis coordinate
+ 3. The —aFieldPaddingLeft option defines left indent for a hint and query text
+*/
+.title_info_jadwal{
+  width: 50%;
+}
+
+.wrap_info{
+  /* text-align: center; */
+}
+
+.info_jadwal{
+  float:none;
+  margin:15px;
+  border-style:solid;
+  padding: 20px;
+  border-radius: 20px;
+  background: #fff;
+  margin-bottom: 20px;
+  font-family: montserrat;
+}
+
+.containerBtn{
+  float:none;
+  margin:15px;
+  border-style:solid;
+  padding: 10px;
+  border-radius: 20px;
+  background: #fff;
+  margin-bottom: 20px;
+  font-family: montserrat;
+}
+
+.title_info_jadwal{
+  font: comic;
+}
+
+.a-field{
+  --uiaFieldHeight: var(--aFieldHeight);
+  --uiaFieldHintFinalCoordinate: var(--aFieldHintFinalCoordinate, var(--uiaFieldHeight));
+  --uiaFieldPaddingLeft: var(--aFieldPaddingLeft);
+  position: relative;
+  padding-top: calc(var(--uiaFieldHintFinalCoordinate) - var(--uiaFieldHeight)); /* 1, 2 */
+}
+
+.a-field__input{
+  box-sizing: border-box;
+  height: var(--uiaFieldHeight); /* 1 */
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: var(--uiaFieldPaddingLeft); /* 3 */
+}
+
+.a-field__input::-webkit-input-placeholder{
+  opacity: 0;
+  transition: opacity .2s ease-out;
+}
+
+.a-field__input::-moz-placeholder{
+  opacity: 0;
+}
+
+.a-field__input:focus::-webkit-input-placeholder{
+  opacity: 1;
+  transition-delay: .2s;
+}
+
+.a-field__input:focus::-moz-placeholder{
+  opacity: 1;
+}
+
+.a-field__label-wrap{
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--uiaFieldHeight);	/* 1 */
+
+  pointer-events: none;
+  cursor: text;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.a-field__label{
+  position: absolute;
+  left: var(--uiaFieldPaddingLeft); /* 3 */
+  bottom: calc(50% - .5em);
+  line-height: 1;
+  pointer-events: none;
+}
+
+/*
+  I needed to create an animation onle Chromium broswers because:
+  1. Firefox doesn't support a placeholder animation
+  2. I couldn't make an correct animation at Edge
+*/
+
+@supports (-webkit-appearance: none){
+
+  .a-field__label{
+    transition: bottom .2s cubic-bezier(0.9,-0.15, 0.1, 1.15), opacity .2s ease-out;
+    will-change: bottom, opacity;
+  }
+}
+
+/* If a user had inserted a text of query a hint will be hidden */
+
+.a-field__input:not(:placeholder-shown) ~ .a-field__label-wrap .a-field__label{
+  opacity: 0;
+  bottom: 85%;
+}
+
+/* If the focal point is a field a hint will be displayed */
+
+.a-field__input:focus ~ .a-field__label-wrap .a-field__label{
+  opacity: 1;
+  bottom: var(--uiaFieldHintFinalCoordinate); /* 2 */
+}
+
+/*
+* the search component
+*/
+
+.searchy{
+  --searchFieldHeight: 50px;
+  --searchButtonSize: var(--searchFieldHeight);
+  --textFieldPlaceholderColor: #000;
+
+  --aFieldHeight: var(--searchFieldHeight);
+  /* The 10px value has been calculated for this demo and you can change it */
+  --aFieldHintFinalCoordinate: calc(var(--searchFieldHeight) + 10px);
+  --aFieldPaddingLeft: 30px;
+  color: #000;
+  position: relative;
+}
+
+/*
+ 1. I needed to set the currentColor value for correct displaying a border on iOS devices
+*/
+
+.search__input{
+  width: 100%;
+  border-width: 3px;
+  border-color: currentColor; /* 1 */
+
+  border-radius: 25px;
+  background-color: transparent;
+  background: #fff;
+
+  font-size: 18px;
+  color: currentColor;
+
+}
+
+.search__input:focus{
+  outline: none;
+}
+
+.search__hint{
+  font-size: 16px;
+}
+
+.search__button{
+  color: currentColor;
+}
+
+.search__button:focus{
+  outline: none;
+}
+
+.search__clear{
+  width: 1em;
+  height: 1em;
+  font-size: var(--searchButtonSize);
+
+  position: absolute;
+  bottom: 0;
+  display: none;
+}
+
+/* If a user starts typing a clearing button will be displayed */
+
+.search__input:not(:placeholder-shown) ~ .search__clear{
+  display: block;
+}
+
+/* If the focal point is a clearing button the hint will be displayed */
+
+.search__clear:focus ~ .a-field__label-wrap .a-field__label{
+  opacity: 1;
+  bottom: var(--aFieldHintFinalCoordinate);
+}
+
+.search__clear-label{
+  position: absolute;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+.search__icon{
+  fill: currentColor;
+  display: block;
+
+  box-sizing: border-box;
+  width: 1.5em;
+  height: 1.5em;
+  padding: .25em;
+
+  position: absolute;
+  top: calc(50% - .75em);
+  left: calc(50% - .75em);
+}
+
+.search__button:focus .search__icon{
+  box-shadow: 0 0 0 3px currentColor;
+}
+
+.search__icon-clear{
+  font-size: 18px;
+}
+
+@media (max-width: 640px){
+
+  .search__input{
+    padding-right: 50px;
+  }
+
+  .search__clear{
+    right: 10px;
+  }
+
+  .search__submit{
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+
+    background-color: #fff;
+    text-transform: uppercase;
+    color: #5f27cd;
+    border-radius: 25px;
+    margin-top: 25px;
+  }
+
+  .search__submit:focus{
+    box-shadow: 0 0 0 3px currentColor;
+    color: #422380;
+  }
+
+  .search__icon-search{
+    display: none;
+  }
+}
+
+@media (min-width: 641px){
+
+  .search__input{
+    padding-right: 115px;
+  }
+
+  .search__clear{
+    right: var(--searchButtonSize);
+  }
+
+  .search__submit{
+    width: 1em;
+    height: 1em;
+    font-size: var(--searchButtonSize);
+
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+  }
+
+  .search__submit-label{
+    position: absolute;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+  }
+
+  .search__icon-search{
+    font-size: 22px;
+  }
+}
