@@ -6,7 +6,9 @@
                 <a class="nav-link {{ Request::is('mentee/dashboard*') ? 'active': null }}"
                    href="{{ url('mentee/dashboard') }}"><i class="fa fa-tachometer"></i> Dashboard</a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('mentee/absen') }}"><i class="fa fa-bar-chart"></i> Absensi QR</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('mentee/nilai') }}"><i class="fa fa-bar-chart"></i> Nilai</a>
             </li>

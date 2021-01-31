@@ -164,12 +164,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
 
 Route::group(['prefix' => 'mentee', 'middleware' => 'auth.mentee'], function () {
 
+    Route::get('/absen', 'Mentee\AbsenQRController@index');
+
     // Dashboard Route
     Route::get('/', 'Mentee\DashboardController@redirect');
     Route::get('/dashboard', 'Mentee\DashboardController@index');
 
     // Nilai Route
     Route::get('/nilai', 'Mentee\NilaiController@main');
+
     
     // Kelompok Route
     Route::get('/kelompok', 'Mentee\KelompokController@index');

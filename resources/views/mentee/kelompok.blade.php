@@ -20,7 +20,7 @@
             </div>
         </div>
     @else
-        <div class="row">
+
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-block">
@@ -31,7 +31,6 @@
                         @include('layout.dashboard.kelompok_content', [
                             "kelompok" => $kelompok
                         ])
-
                     </div>
                 </div>
             </div>
