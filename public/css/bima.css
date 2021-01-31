@@ -7,6 +7,7 @@ body {
     background-position: right bottom;
     background-size: auto;
     background-attachment: fixed;
+    font-family: 'Quicksand' !important;
 }
 
 /*Body Styling */
