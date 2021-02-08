@@ -101,7 +101,7 @@
                         </div>
                         <h1 class="text-xs-center mt-3 mb-2" style="color: #464646; font-family:'gloss'; ">Dept Mentor</h1>
                         <h5 class="text-xs-center" style="color: #464646; font-family:'Quicksand'; margin-bottom:20px;">
-                            Departemen Mentor Pusat Badan Mentoring</h5>
+                            Departemen Mentor Badan Mentoring Pusat</h5>
                         <div class="row">
                             <p style="font-family: Quicksand; color: black" class="" ><strong>Fakultas Asal Mentor : </strong></p>
                         </div>
