@@ -14,8 +14,15 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect('/login');
-});
+    return redirect('/mentor-2021');
+})->middleware(['htmlmin']);
+
+Route::get('/mentor-2021', 'PublicAccessController@mentorRegis');
+Route::get('/mentor-2021/teknik', 'PublicAccessController@mentorTeknik');
+Route::get('/mentor-2021/FKEB', 'PublicAccessController@mentorFKEB');
+Route::get('/mentor-2021/FIT', 'PublicAccessController@mentorFIT');
+Route::get('/mentor-2021/FIK', 'PublicAccessController@mentorFIK');
+
 
 Route::get('/mobile', function () {
     return response()->download(public_path().'/API/mobile/FT_SIBIMA.apk');

@@ -33,7 +33,8 @@
 
         .background-image {
             /*background-image: url('https://images.pexels.com/photos/6462611/pexels-photo-6462611.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');*/
-            background-image: url('https://image.freepik.com/free-vector/mandala-illustration_53876-81805.jpg')  ;
+            /*background-image: url('https://image.freepik.com/free-vector/mandala-illustration_53876-81805.jpg')  ;*/
+            background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20200408/pngtree-islamic-background-in-flat-style-image_333578.jpg')  ;
             /*background-image: url('https://');*/
             margin: 0;
             background-repeat: no-repeat;
@@ -44,7 +45,6 @@
             width:100% !important;
             height:100% !important;
             display: block;
-
 
             /* Center and scale the image nicely */
             background-position: center;
@@ -98,43 +98,24 @@
                     <div class="form-box" id="login-box">
                         <div id="bima-look">
                             <div id="head-look"></div>
-                            <div id="hand-look"></div>
                         </div>
-
                         <h1 class="text-xs-center mt-3 mb-2" style="color: #464646; font-family:'gloss'; ">Dept Mentor</h1>
                         <h5 class="text-xs-center" style="color: #464646; font-family:'Quicksand'; margin-bottom:20px;">
-                            Departemen Mentor Pusat SIBIMA</h5>
+                            Departemen Mentor Pusat Badan Mentoring</h5>
+                        <div class="row">
+                            <p style="font-family: Quicksand; color: black" class="" ><strong>Fakultas Asal Mentor : </strong></p>
+                        </div>
+                        <a href="{{url('/mentor-2021/teknik')}}"><button  style="font-family: Quicksand"  class="btn btn-primary btn-block px-2">Fakultas Teknik (FT-FRI-FIF)</button></a>
+                        <a href="{{url('/mentor-2021/FIK')}}"><button  style="font-family: Quicksand"  class="btn btn-primary btn-block mt-1 px-2">Fakultas Industri Kreatif (FIK)</button></a>
+                        <a href="{{url('/mentor-2021/FIT')}}"><button  style="font-family: Quicksand"  class="btn btn-primary btn-block mt-1 px-2">Fakultas Ilmu Terapan (FIT)</button></a>
+                        <a href="{{url('/mentor-2021/FKEB')}}"><button  style="font-family: Quicksand"  class="btn btn-primary btn-block mt-1 px-2">FKEB</button></a>
 
                         <form class="form" action="{{ url('/login') }}" method="post">
                             {{ csrf_field() }}
 
                             @include('layout.dashboard.alert_flash')
 
-                            <div class="input-group mb-1">
-                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <input type="text" class="form-control"  style="font-family: Quicksand" name="nim" placeholder="NIM" required>
-                            </div>
-                            <div class="input-group mb-2">
-                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                <input type="password" class="form-control"  style="font-family: Quicksand" name="password" placeholder="Password"
-                                       required>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12 col-sm-12">
-                                    <button  style="font-family: Quicksand" type="submit" class="btn btn-primary  px-2">Login</button>
-                                </div>
 
-                                <div class="col-lg-6 col-md-12 col-sm-12 ">
-                                    <button  style="font-family: Quicksand" type="button" onclick="swal('Hubungi OA Badan Mentoring Fakultas Teknik')"
-                                            class="btn btn-link px-0 float-md-right">Forgot password?
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <br>
-                                <p style="font-family: Quicksand; color: black" class="" ><strong>SIBIMA tersedia dalam versi Android <br> (beta version)</strong></p>
-                                <a style="font-family: Quicksand" href="https://feylaboratory.xyz/sibima/">Download SIBIMA MOBILE</a>
-                            </div>
                         </form>
                     </div>
                 </div>
