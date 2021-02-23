@@ -27,9 +27,9 @@
 
 		var last_valid_selection = null;
 		$("#select-mentee").change(function () {
-			if ($(this).val().length > 13) {
+			if ($(this).val().length > 25) {
 				$(this).val(last_valid_selection);
-				alert("Maximal 13 Mentee")
+				alert("Maximal 25 Mentee")
 			} else {
 				last_valid_selection = $(this).val();
 				$('#counter').text($(this).val().length);
@@ -115,7 +115,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label>Mentee - Counter : <strong><span id="counter">0</span></strong> (Max 13)</label>
+				<label>Mentee - Counter : <strong><span id="counter">0</span></strong> (Max 25)</label>
 				<select style="height: 200px" class="form-control" id="select-mentee" name="mentee[]" multiple required>
 					<option value="">--</option>
 				</select>

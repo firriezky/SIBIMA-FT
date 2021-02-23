@@ -103,7 +103,9 @@
 
                         <h1 class="text-xs-center mt-3 mb-2" style="color: #464646; font-family:'gloss'; ">Sibima FT</h1>
                         <h5 class="text-xs-center" style="color: #464646; font-family:'Quicksand'; margin-bottom:20px;">
-                            Sistem Informasi Badan Mentoring<br/>Telkom University</h5>
+                            Sistem Informasi Badan Mentoring<br/>Telkom University
+                            <br>Fakultas Teknik (FRI,FTE,FIF)
+                            </h5>
 
                         <form class="form" action="{{ url('/login') }}" method="post">
                             {{ csrf_field() }}
