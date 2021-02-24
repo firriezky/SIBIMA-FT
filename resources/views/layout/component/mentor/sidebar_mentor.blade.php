@@ -65,11 +65,11 @@
                 <a class="nav-link {{ Request::is('mentor/questioner*') ? 'active': null }}"
                    href="{{ url('mentor/questioner') }}"><i class="fa fa-question-circle-o"></i> Kuesioner</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="https://www.facebook.com/groups/sibima" target="_blank">
                     <i class="fa fa-envelope" aria-hidden="true"></i> Helpdesk
                 </a>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('mentor/about-bima') }}">
                     <i class="fa fa-code"></i> About SIBIMA

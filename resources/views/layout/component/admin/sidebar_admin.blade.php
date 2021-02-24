@@ -203,9 +203,9 @@
                 <a class="nav-link" href="{{ url('admin/questioner') }}"><i class="fa fa-question-circle-o"></i> Kuesioner</a>
             </li>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="https://www.facebook.com/groups/sibima" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i> Helpdesk</a>
-            </li>
+            </li> -->
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('admin/about-bima') }}">
