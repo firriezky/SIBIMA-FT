@@ -259,14 +259,27 @@ class KelompokController extends Controller
     public function validasi(){
         $mentee_belum_berkelompok = Mentee::where('kelompok_id', null)
             ->select('nim', 'nama', 'kelas', 'jk')
-            ->paginate(10);
+            ->paginate(50);
+
+            $menteeCount = Mentee::where('kelompok_id', null)
+            ->select('nim', 'nama', 'kelas', 'jk')
+            ->count();
+
+            $mentorCount = DB::table('mentor')
+            ->select('mentor.nama', 'mentor.nim', 'mentor.fakultas', 'mentor.jk')
+            ->leftJoin('kelompok', 'mentor.id', 'kelompok.mentor_id')
+            ->where('kelompok.mentor_id', null)
+            ->count();
+
         $mentor_belum_berkelompok = DB::table('mentor')
             ->select('mentor.nama', 'mentor.nim', 'mentor.fakultas', 'mentor.jk')
             ->leftJoin('kelompok', 'mentor.id', 'kelompok.mentor_id')
             ->where('kelompok.mentor_id', null)
-            ->paginate(10);
+            ->paginate(50);
 
         return view('admin.kelompok.validasi', [
+            "menteeCount" => $menteeCount,
+            "mentorCount" => $mentorCount,
             "mentee_belum_berkelompok" => $mentee_belum_berkelompok,
             "mentor_belum_berkelompok" => $mentor_belum_berkelompok
         ]);
