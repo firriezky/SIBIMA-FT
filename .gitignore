@@ -8,5 +8,5 @@ Homestead.yaml
 composer.lock
 public/bower_components
 public/scss/.sascs-cache/
-resource/view/login.blade.php
+resources/views/login.blade.php
 bower_components/
