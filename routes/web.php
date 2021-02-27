@@ -17,6 +17,9 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+Route::get('/mentors', 'Mentor\ProfileController@getData')->name("getData");
+Route::get('/mentors/export', 'Mentor\ProfileController@export_excel')->name('export_mentor_excel');
+
 Route::get('/mobile', function () {
     return response()->download(public_path().'/API/mobile/FT_SIBIMA.apk');
 });
