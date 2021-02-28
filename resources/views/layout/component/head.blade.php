@@ -7,10 +7,10 @@
 <title>@yield('title') | SIBIMA</title>
 
 
-<!-- Datatables Styling -->
+<style>
+    /* <!-- Datatables Styling --> */
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/jszip-2.5.0/dt-1.10.23/b-1.6.5/b-colvis-1.6.5/b-flash-1.6.5/b-html5-1.6.5/b-print-1.6.5/cr-1.5.3/r-2.2.7/sc-2.0.3/sb-1.0.1/sp-1.2.2/datatables.css" />
-
-
+</style>
 
 <!-- Icons -->
 <link href="{{ url('bower_components/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet">
