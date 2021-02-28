@@ -43,9 +43,9 @@
             <div class="form-group input-group date date-picker">
                 <span class="input-group-addon input-group-head">Hari / Tanggal</span>
                 <input class="form-control form-head" type="text" name="tanggal" required>
-                                            <span class="input-group-addon input-group-head" style="width: 20px">
-                                                <i class="fa fa-calendar"></i>
-                                            </span>
+                <span class="input-group-addon input-group-head" style="width: 20px">
+                    <i class="fa fa-calendar"></i>
+                </span>
             </div>
         </div>
 
@@ -57,6 +57,17 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-12">
+            <div class="form-group">
+                <span class="input-group-addon input-group-head">Bukti Foto Mentoring</span>
+                <input type="file" class="form-control-file" name="" id="" placeholder="" aria-describedby="fileHelpId">
+                <small id="fileHelpId" class="form-text text-muted">Help text</small>
+            </div>
+        </div>
+
+
+
     </div>
 </div>
 
@@ -65,34 +76,31 @@
         <div class="table-responsive">
             <table class="table table-sm table-hover table-striped">
                 <thead>
-                <th>No</th>
-                <th>NIM</th>
-                <th>Nama</th>
-                <th>Kelas</th>
-                <th width="15">Mentoring</th>
-                <th width="80">Kultum</th>
+                    <th>No</th>
+                    <th>NIM</th>
+                    <th>Nama</th>
+                    <th>Kelas</th>
+                    <th width="15">Mentoring</th>
+                    <th width="80">Kultum</th>
                 </thead>
                 <tbody>
-                @foreach($kelompok->getMentee as $mentee)
+                    @foreach($kelompok->getMentee as $mentee)
                     {{-- TODO CEK APABILA MENTEE TELAH INPUT NILAI PADA AGENDA TERKAIT --}}
                     {{-- KEMUNGKINAN TERJADI APABILA PINDAH KELOMPOK --}}
                     <tr>
-                        <input type="number" name="mentee_id[]"
-                               value="{{ $mentee->id }}" style="display: none">
+                        <input type="number" name="mentee_id[]" value="{{ $mentee->id }}" style="display: none">
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $mentee->nim }}</td>
                         <td>{{ $mentee->nama }}</td>
                         <td>{{ $mentee->kelas }}</td>
                         <td>
-                            <input class="form-control form-control-sm"
-                                   type="number" name="nilai[]" required>
+                            <input class="form-control form-control-sm" type="number" name="nilai[]" required>
                         </td>
                         <td>
-                            <input class="form-control form-control-sm"
-                                   type="number" name="kultum[]" value="0" required>
+                            <input class="form-control form-control-sm" type="number" name="kultum[]" value="0" required>
                         </td>
                     </tr>
-                @endforeach
+                    @endforeach
                 </tbody>
             </table>
         </div>
