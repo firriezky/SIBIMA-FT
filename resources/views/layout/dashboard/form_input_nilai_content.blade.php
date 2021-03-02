@@ -58,13 +58,16 @@
             </div>
         </div>
 
-        <div class="col-12">
+        <div class="col-md-12">
             <div class="form-group">
-                <span class="input-group-addon input-group-head">Bukti Foto Mentoring</span>
-                <input type="file" class="form-control-file" name="" id="" placeholder="" aria-describedby="fileHelpId">
-                <small id="fileHelpId" class="form-text text-muted">Help text</small>
+                <div class="input-group">
+                    <span class="input-group-addon input-group-head">Foto Mentoring</span>
+                    <input class="form-control form-head" type="file" name="photo" accept="image/*" required>
+                </div>
             </div>
         </div>
+
+      
 
 
 
