@@ -80,6 +80,7 @@ class BeritaMentoringController extends Controller
         }
 
         $berita_mentoring = new BeritaMentoring();
+        
         $berita_mentoring->tempat = $request->input('tempat');
         $berita_mentoring->materi = $request->input('materi');
         $berita_mentoring->materi_kultum = $request->input('materi_kultum');

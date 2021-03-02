@@ -28,7 +28,7 @@
         <div class="container d-table ">
             <div class="d-100vh-va-middle">
                 <div class="d-flex justify-content-center">
-                    <lottie-player src="https://assets4.lottiefiles.com/datafiles/OzG1c5GtuAvq10U/data.json" autoplay mode="bounce" background="transparent" class="img-fluid img-max"  speed="1"  loop  ></lottie-player>
+                    <lottie-player style="max-width: 1060px" src="https://assets4.lottiefiles.com/datafiles/OzG1c5GtuAvq10U/data.json" autoplay mode="bounce" background="transparent" class="img-fluid img-max"  speed="1"  loop  ></lottie-player>
                 </div>
             <div class="justify-content-center" style="text-align: center"><h2> <strong> Halaman Tidak Ditemukan</strong></h2><br> <h4>Kembali ke <a href="{{url('/')}}">SIBIMA</a><br>atau Hubungi <a href=""> SIBIMA IT-Helpdesk </a>jika gangguan terus berlanjut <br><br><br>
             </div>
