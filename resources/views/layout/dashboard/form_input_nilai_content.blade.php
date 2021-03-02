@@ -62,7 +62,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon input-group-head">Foto Mentoring</span>
-                    <input class="form-control form-head" type="file" name="photo" accept="image/*" required>                    
+                    <input class="form-control form-head" type="file" name="photo" accept=".zip,.rar,.7zip,image/*" required>                    
                     </label>
                 </div>
                 <label class="mt-1" for="">Bukti Foto Mentoring Berupa : <br>
