@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\LoginLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,12 +22,15 @@ class AuthController extends Controller
     public function submitLogin(Request $request){
 
         if(Auth::guard('admin')->attempt(['username' => $request['nim'], 'password' => $request['password']])){
+            $this->loginLog($request['nim'],"admin");
             return redirect('/admin');
 
         } else if(Auth::guard('mentee')->attempt(['nim' => $request['nim'], 'password' => $request['password']])) {
+            $this->loginLog($request['nim'],"mentee");
             return redirect('/mentee');
 
         } else if(Auth::guard('mentor')->attempt(['nim' => $request['nim'], 'password' => $request['password']])) {
+            $this->loginLog($request['nim'],"mentor");
             return redirect('/mentor');
 
         } else {
@@ -40,5 +44,12 @@ class AuthController extends Controller
         Auth::guard('mentee')->logout();
         Auth::guard('mentor')->logout();
         return redirect('/');
+    }
+
+    public function loginLog($nim,$type){
+        $loginLog = new LoginLog();
+        $loginLog->type="$type";
+        $loginLog->nim="$nim";
+        $loginLog->save();
     }
 }
