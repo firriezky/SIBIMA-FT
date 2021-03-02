@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Agenda;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use InvalidArgumentException;
 use Knp\Snappy\Pdf;
@@ -54,12 +56,16 @@ class BeritaMentoringController extends Controller
     }
 
     public function submit(Request $request, $id_agenda){
-
         $list_mentee = $request->input('mentee_id');
         $list_nilai = $request->input('nilai');
         $list_kultum = $request->input('kultum');
 
         $kelompok = Kelompok::find($request->input('kelompok_id'));
+        $agenda = Agenda::find($id_agenda);
+
+        $groupName = $kelompok->kode;
+        $agendaName = $agenda->judul;
+        
         $count_mentee = count($kelompok->getMentee);
 
         $not_complete = false;
@@ -80,17 +86,35 @@ class BeritaMentoringController extends Controller
         }
 
         $berita_mentoring = new BeritaMentoring();
-        
-        $berita_mentoring->tempat = $request->input('tempat');
+        $berita_mentoring->photo = "Ehem";
+
+        //If File Exist
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $fileExtension = $file->getClientOriginalExtension();
+            $directory = "BERITA_MENTORING/".$agendaName."/".$groupName."/";
+            $filename = time()."_.".$fileExtension;
+            //Save FILE to Folder
+            Input::file('photo')->move(public_path($directory),$filename);
+        }else{
+            flash('Mohon isi bukti foto mentoring general', 'danger');
+            return redirect(URL::previous());
+        }
+
+      
+              
         $berita_mentoring->materi = $request->input('materi');
         $berita_mentoring->materi_kultum = $request->input('materi_kultum');
+        
         try {
             $tanggal = Carbon::createFromFormat('d/m/Y H:i', $request->input('tanggal'));
         } catch (InvalidArgumentException $ex) {
             flash('Invalid format date', 'danger');
             return redirect('mentor/berita-mentoring');
         }
+
         $berita_mentoring->tanggal = $tanggal;
+        $berita_mentoring->record_gmeet = $request->gmeet_record;
         $berita_mentoring->agenda_id = $id_agenda;
         $berita_mentoring->kelompok_id = $request->input('kelompok_id');
         $berita_mentoring->save();

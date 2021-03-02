@@ -59,7 +59,7 @@
         @foreach($list_kelompok as $kelompok)
             <div class="row">
                 <div class="col-md-12">
-                    <form action="{{ url('mentor/berita-mentoring/input') }}/{{ $agenda->id }}" method="post">
+                    <form action="{{ url('mentor/berita-mentoring/input') }}/{{ $agenda->id }}" method="post"  enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="card card-block">
                             <h4 class="card-title">Input Berita Mentoring {{ $kelompok->kode }}</h4>
@@ -91,7 +91,7 @@
             @else
                 <div class="row">
                     <div class="col-md-12">
-                        <form action="{{ url('mentor/berita-mentoring/input') }}/{{ $agenda->id }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ url('mentor/berita-mentoring/input') }}/{{ $agenda->id }}" method="post"  enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="card card-default">
                                 <div class="card-header card-header-inverse">

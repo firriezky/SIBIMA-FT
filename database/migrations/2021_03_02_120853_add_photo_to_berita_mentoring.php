@@ -18,6 +18,7 @@ class AddPhotoToBeritaMentoring extends Migration
     {
         Schema::table('berita_mentoring', function (Blueprint $table) {
             $table->string('photo')->nullable();
+            $table->string('record_gmeet')->nullable();
         });
     }
 
@@ -30,6 +31,7 @@ class AddPhotoToBeritaMentoring extends Migration
     {
         Schema::table('berita_mentoring', function (Blueprint $table) {
             $table->dropColumn('photo');
+            $table->dropColumn('record_gmeet');
         });
     }
 }

@@ -7,6 +7,7 @@ Homestead.yaml
 .env
 composer.lock
 public/bower_components
+public/BERITA_MENTORING/
 public/scss/.sascs-cache/
 resources/views/login.blade.php
 bower_components/

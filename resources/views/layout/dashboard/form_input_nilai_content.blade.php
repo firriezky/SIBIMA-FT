@@ -62,10 +62,30 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon input-group-head">Foto Mentoring</span>
-                    <input class="form-control form-head" type="file" name="photo" accept="image/*" required>
+                    <input class="form-control form-head" type="file" name="photo" accept="image/*" required>                    
+                    </label>
                 </div>
+                <label class="mt-1" for="">Bukti Foto Mentoring Berupa : <br>
+                    <ul>
+                        <li>Bukti min 3 foto Screenshot Zoom / Google Meet </li>
+                        <li>Dikumpulkan dalam bentuk <strong>beberapa gambar yang disatukan kedalam 1 file .zip</strong> </li>
+                        <li>Bukti Mentoring Akan Digunakan Sebagai Laporan ke PPDU</li>
+                    </ul>
+
             </div>
         </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon input-group-head">Link Record</span>
+                    <input class="form-control form-head" type="text" placeholder="Link Rekaman Google Meet" name="gmeet_record" required required>
+                </div>
+                <label class="mt-1" for="">Isi Dengan Link Rekaman Record Google Meet <br>
+            </div>
+        </div>
+
+        
 
       
 
