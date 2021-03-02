@@ -75,6 +75,18 @@
             </div>
         </div>
 
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon input-group-head">Link Record</span>
+                    <input class="form-control form-head" type="text" placeholder="Link Rekaman Google Meet" name="gmeet_record" required required>
+                </div>
+                <label class="mt-1" for="">Isi Dengan Link Rekaman Record Google Meet <br>
+            </div>
+        </div>
+
+        
+
       
 
 

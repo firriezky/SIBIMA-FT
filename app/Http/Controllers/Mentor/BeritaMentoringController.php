@@ -114,6 +114,7 @@ class BeritaMentoringController extends Controller
         }
 
         $berita_mentoring->tanggal = $tanggal;
+        $berita_mentoring->record_gmeet = $request->gmeet_record;
         $berita_mentoring->agenda_id = $id_agenda;
         $berita_mentoring->kelompok_id = $request->input('kelompok_id');
         $berita_mentoring->save();
