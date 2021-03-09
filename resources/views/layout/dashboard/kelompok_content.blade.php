@@ -17,7 +17,7 @@
     </div>
     <div class="col-md-4">
         <div class="input-group form-group">
-            <span class="input-group-addon"><span class="fa fa-comment-o"></span>Group</span>
+            <span class="input-group-addon"><span class="fa fa-comment-o"></span>Line Mentor / Link Grup Mentoring</span>
             <div class="form-control form-head">
                 {{ $kelompok->getMentor->line_id or "-" }}
             </div>

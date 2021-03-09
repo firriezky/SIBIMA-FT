@@ -68,7 +68,6 @@
 		$('.btn-edit').on('click', function(){
 			var agenda_id = $(this).attr('agenda');
 			var judul = $(this).attr('judul');
-
 			$('input[id="agenda_id"]').val(agenda_id);
 			$('input[id="judul_edit"]').val(judul);
 
