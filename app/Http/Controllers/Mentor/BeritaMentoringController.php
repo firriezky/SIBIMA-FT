@@ -86,8 +86,7 @@ class BeritaMentoringController extends Controller
         }
 
         $berita_mentoring = new BeritaMentoring();
-        $berita_mentoring->photo = "Ehem";
-
+        $filename = "";
         //If File Exist
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
@@ -101,8 +100,7 @@ class BeritaMentoringController extends Controller
             return redirect(URL::previous());
         }
 
-      
-              
+        $berita_mentoring->photo = "$filename";
         $berita_mentoring->materi = $request->input('materi');
         $berita_mentoring->materi_kultum = $request->input('materi_kultum');
         
