@@ -67,8 +67,7 @@
                 </div>
                 <label class="mt-1" for="">Bukti Foto Mentoring Berupa : <br>
                     <ul>
-                        <li>Bukti min 3 foto Screenshot Zoom / Google Meet </li>
-                        <li>Dikumpulkan dalam bentuk <strong>beberapa gambar yang disatukan kedalam 1 file .zip</strong> </li>
+                        <li>Bukti foto Screenshot Zoom / Google Meet , Cukup 1 Foto Saja </li>
                         <li>Bukti Mentoring Akan Digunakan Sebagai Laporan ke PPDU</li>
                     </ul>
 
