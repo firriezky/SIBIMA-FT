@@ -17,6 +17,8 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+Route::get('/dsc', 'MonitoringController@view');
+Route::get('/dsc/{id}', 'MonitoringController@viewByID');
 Route::get('/mentors', 'Mentor\ProfileController@getData')->name("getData");
 Route::get('/mentors/export', 'Mentor\ProfileController@export_excel')->name('export_mentor_excel');
 
