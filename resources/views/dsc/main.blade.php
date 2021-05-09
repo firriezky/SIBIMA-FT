@@ -46,6 +46,7 @@ View Data Mentor
     <div class="form-group">
       <label for="">Pilih Agenda Mentoring Yang Akan Dicek</label>
       <select class="form-control"  onchange="location = this.value;" id="">
+        <option value="#">Pilih Agenda Yang Akan Dicek</option>
         @forelse ($acara as $item)
             <option value="{{url('/dsc').'/'.$item->id}}">{{$item->judul}}</option>
         @empty
