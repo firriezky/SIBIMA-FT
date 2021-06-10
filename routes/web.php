@@ -19,6 +19,9 @@ Route::get('/', function () {
 
 Route::get('/dsc', 'MonitoringController@view');
 Route::get('/dsc/{id}', 'MonitoringController@viewByID');
+Route::get('/dsc/report/all', 'MonitoringController@viewReport');
+Route::get('/dsc/report/detail/{id}', 'MonitoringController@viewReportDetail');
+
 Route::get('/mentors', 'Mentor\ProfileController@getData')->name("getData");
 Route::get('/mentors/export', 'Mentor\ProfileController@export_excel')->name('export_mentor_excel');
 
