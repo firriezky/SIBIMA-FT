@@ -10,7 +10,7 @@ class MonitoringController extends Controller
 {
     public function view()
     {
-        $myData = DB::select("SELECT a.kode,b.nim,b.nama,b.fakultas,b.no_telp,b.line_id FROM kelompok a LEFT join mentor b on a.mentor_id=b.id where a.id not in (SELECT kelompok_id from berita_mentoring)");
+        $myData = DB::select("SELECT a.kode,b.nim,b.nama,b.fakultas,b.no_telp,b.line_id FROM kelompok a LEFT join mentor b on a.mentor_id=b.id where a.id not in (SELECT kelompok_id from berita_mentoring) ");
         $acara = Agenda::where('tipe', '=', '1')->get();
         return view('dsc.main')->with(compact('acara','myData'));
     }
@@ -25,7 +25,7 @@ class MonitoringController extends Controller
     public function viewReport()
     {
         $myData = DB::select("
-        select `berita_mentoring`.*, `kelompok`.`kode` as `kode`, `mentor`.`nama` as `mentor_nama`, `mentor`.`nim` as `mentor_nim`, `agenda`.`judul` as `judul_agenda` from `berita_mentoring` left join `kelompok` on `berita_mentoring`.`kelompok_id` = `kelompok`.`id` left join `mentor` on `kelompok`.`mentor_id` = `mentor`.`id` left join `agenda` on `berita_mentoring`.`agenda_id` = `agenda`.`id` where kelompok.kode like '%%' or mentor.nama like '%%' or agenda.judul like '%%' order by `created_at`");
+        select `berita_mentoring`.*, `kelompok`.`kode` as `kode`, `mentor`.`nama` as `mentor_nama`, `mentor`.`nim` as `mentor_nim`, `agenda`.`judul` as `judul_agenda` from `berita_mentoring` left join `kelompok` on `berita_mentoring`.`kelompok_id` = `kelompok`.`id` left join `mentor` on `kelompok`.`mentor_id` = `mentor`.`id` left join `agenda` on `berita_mentoring`.`agenda_id` = `agenda`.`id` order by nama");
         
         return view('dsc.report.main')->with(compact('myData'));
     }
