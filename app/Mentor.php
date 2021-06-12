@@ -13,40 +13,45 @@ class Mentor extends Authenticatable
     protected $table = 'mentor';
 
     protected $fillable = [
-        'nama', 'nim', 'password',
+        'nama', 'nim', 'password', 'no_rekening', 'path_ktp', 'path_ktm', 'path_tabungan'
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    public function getJK(){
+    public function getJK()
+    {
         return $this->jk == 1 ? "Ikhwan" : "Akhwat";
     }
 
-    public function getKelompok() {
+    public function getKelompok()
+    {
         return $this->hasMany('App\Kelompok', 'mentor_id');
     }
 
-    public function getKelompokAsisten() {
+    public function getKelompokAsisten()
+    {
         // Dia mereturn kelompok yang mentor tersebut asisteni
         return $this->hasMany('App\Kelompok', 'asisten_id');
     }
 
-    public function getPresensiTalaqi($agenda_id){
+    public function getPresensiTalaqi($agenda_id)
+    {
         return Presensi::where('agenda_id', $agenda_id)
             ->where('mentor_id', $this->id)->first();
 
-            // return object presensi dengan agenda X apabila mentee hadir mentoring general
-            // jika mentee tidak hadir, maka return null
+        // return object presensi dengan agenda X apabila mentee hadir mentoring general
+        // jika mentee tidak hadir, maka return null
     }
 
-    public function getPresensiTalaqiSeries(){
+    public function getPresensiTalaqiSeries()
+    {
         $agendas = Agenda::where('tipe', 3)
             ->where('fakultas', $this->fakultas)->get();
 
         $presensi_series = [];
-        foreach ($agendas as $agenda){
+        foreach ($agendas as $agenda) {
             $presensi = $this->getPresensiTalaqi($agenda->id);
             array_push($presensi_series, [
                 "agenda" => $agenda,
@@ -57,16 +62,17 @@ class Mentor extends Authenticatable
         return $presensi_series;
 
         // Return Sample
-//        => [
-//            [ "agenda" => OBJECT_AGENDA,
-//              "presensi" => null, // Kalo tidak hadir ],
-//            [ "agenda" => OBJECT_AGENDA,
-//              "presensi" => "OBJECT_PRESENSI" // kalo hadir, panggil method isTelat() untuk cek telat, note],
-//        ]
+        //        => [
+        //            [ "agenda" => OBJECT_AGENDA,
+        //              "presensi" => null, // Kalo tidak hadir ],
+        //            [ "agenda" => OBJECT_AGENDA,
+        //              "presensi" => "OBJECT_PRESENSI" // kalo hadir, panggil method isTelat() untuk cek telat, note],
+        //        ]
     }
-    
+
     // Mengambil data total sudah berapa kali jadi mentor (INT)
-    public function getTotalKelompok() {
+    public function getTotalKelompok()
+    {
         $total = DB::table('kelompok')
             ->where('mentor_id', $this->id)
             ->count();
@@ -74,14 +80,16 @@ class Mentor extends Authenticatable
     }
 
     // Mengambil data total sudah berapa kali jadi asisten (INT)
-    public function getTotalAsisten() {
+    public function getTotalAsisten()
+    {
         $total = DB::table('kelompok')
             ->where('asisten_id', $this->id)
             ->count();
         return $total;
     }
 
-    public static function allMentorCounterMentor($jk){
+    public static function allMentorCounterMentor($jk)
+    {
         // Raw Query
         //SELECT mentor.id, mentor.nama, mentor.fakultas, count(kelompok.id) FROM mentor
         // LEFT JOIN kelompok ON mentor.id = kelompok.mentor_id WHERE jk = 1 GROUP by mentor.id
@@ -94,7 +102,8 @@ class Mentor extends Authenticatable
             ->get();
     }
 
-    public static function allMentorCounterAsisten($jk){
+    public static function allMentorCounterAsisten($jk)
+    {
         // Raw Query
         //SELECT mentor.id, mentor.nama, mentor.fakultas, count(kelompok.id) FROM mentor
         // LEFT JOIN kelompok ON mentor.id = kelompok.mentor_id WHERE jk = 1 GROUP by mentor.id
@@ -107,9 +116,8 @@ class Mentor extends Authenticatable
             ->get();
     }
 
-    public function getTahunMasuk(){
-        return "20" . substr($this->nim, 4,2);
+    public function getTahunMasuk()
+    {
+        return "20" . substr($this->nim, 4, 2);
     }
-
 }
-
