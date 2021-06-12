@@ -26,7 +26,7 @@ Route::get('/mentors', 'Mentor\ProfileController@getData')->name("getData");
 Route::get('/mentors/export', 'Mentor\ProfileController@export_excel')->name('export_mentor_excel');
 
 Route::get('/mobile', function () {
-    return response()->download(public_path().'/API/mobile/FT_SIBIMA.apk');
+    return response()->download(public_path() . '/API/mobile/FT_SIBIMA.apk');
 });
 
 // Authentication Route
@@ -59,7 +59,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     Route::get('/berita-mentoring/unreported', 'Admin\BeritaMentoringController@unreported');
     Route::get('/berita-mentoring/delete/{id}', 'Admin\BeritaMentoringController@delete');
     Route::get('/berita-mentoring/{id}', 'Admin\BeritaMentoringController@detail');
-    
+
     // Kelompok Route
     Route::get('/kelompok', 'Admin\KelompokController@listKelompok');
     Route::get('/kelompok/create-ikhwan', 'Admin\KelompokController@createIkhwan');
@@ -87,7 +87,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     Route::get('presensi/general/input/{id_agenda}', 'Admin\PresensiController@inputGeneral');
     Route::post('presensi/general/input/{id_agenda}', 'Admin\PresensiController@postInputGeneral');
     Route::get('presensi/general/detail/{id_agenda}', 'Admin\PresensiController@detailGeneral');
-    
+
     // Presensi General Perizinan
     Route::get('/presensi/perizinan', 'Admin\PerizinanController@perizinan');
     Route::get('/presensi/perizinan/acc/{id}/', 'Admin\PerizinanController@accepted');
@@ -110,7 +110,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
     Route::post('/data/mentor/edit/{id}', 'Admin\DataController@submitEditMentor');
     Route::get('/data/mentor/delete/{id}', 'Admin\DataController@deleteMentor');
     Route::get('/data/mentor/{id}', 'Admin\DataController@detailMentor');
-    
+
     // Manage Data Mentee Route
     Route::get('/data/mentee', 'Admin\DataController@listMentee');
     Route::post('/data/mentee', 'Admin\DataController@submitInputMentee');
@@ -165,7 +165,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
 
     // About BIMA Route
     Route::get('/about-bima', 'Admin\DashboardController@about');
-
 });
 
 //--------------- MENTEE ROUTES ---------------//
@@ -181,7 +180,7 @@ Route::group(['prefix' => 'mentee', 'middleware' => 'auth.mentee'], function () 
     // Nilai Route
     Route::get('/nilai', 'Mentee\NilaiController@main');
 
-    
+
     // Kelompok Route
     Route::get('/kelompok', 'Mentee\KelompokController@index');
 
@@ -209,7 +208,6 @@ Route::group(['prefix' => 'mentee', 'middleware' => 'auth.mentee'], function () 
     // Perizinan Route
     Route::get('/perizinan', 'Mentee\PerizinanController@perizinan');
     Route::post('/perizinan', 'Mentee\PerizinanController@submit');
-    
 });
 
 //--------------- MENTOR ROUTES ---------------//
@@ -228,7 +226,7 @@ Route::group(['prefix' => 'mentor', 'middleware' => 'auth.mentor'], function () 
     Route::post('/berita-mentoring/edit/{id_agenda}', 'Mentor\BeritaMentoringController@submitEdit');
     Route::get('/berita-mentoring/rekap', 'Mentor\BeritaMentoringController@rekap');
     Route::get('/berita-mentoring/export/{id_agenda}', 'Mentor\BeritaMentoringController@export');
-    
+
     // View Kelompok Route
     Route::get('/kelompok', 'Mentor\KelompokController@index');
     Route::get('/kelompok/asisten', 'Mentor\KelompokController@asisten');
@@ -247,11 +245,11 @@ Route::group(['prefix' => 'mentor', 'middleware' => 'auth.mentor'], function () 
     // Edit Profile Route
     Route::get('/profile', 'Mentor\ProfileController@getProfile');
     Route::post('/profile', 'Mentor\ProfileController@postProfile');
+    Route::post('/update-cred', 'Mentor\ProfileController@postCredential');
 
     //penggumuman
     Route::get('/pengumuman', 'Mentor\PengumumanController@viewPengumuman');
 
     // About BIMA Route
     Route::get('/about-bima', 'Mentor\DashboardController@about');
-
 });
