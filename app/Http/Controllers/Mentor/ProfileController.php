@@ -108,6 +108,7 @@ class ProfileController extends Controller
         
         $pathKTM = $mentor->path_ktm;
         $pathKTP = $mentor->path_ktp;
+        $pathTTD = $mentor->path_ktp;
         $pathTabungan = $mentor->path_rekening;
 
 
@@ -130,6 +131,28 @@ class ProfileController extends Controller
             $path = public_path()."$savePath";
             $file->move($path,$filename);
             $pathKTM = $savePathDB;
+        }
+
+
+        if ($request->hasFile('photo_ttd')) {
+            $file_path = public_path() . $mentor->path_ttd;
+            if (file_exists($file_path)) {
+                try {
+                    unlink($file_path);
+                } catch (Exception $e) {
+                    // Do Nothing
+                }
+            }
+
+            $file = $request->file('photo_ttd');
+            $extension = $file->getClientOriginalExtension();
+            $filename= $mentor->nim."-".time().".$extension";
+
+            $savePath = "/web_files/ttd/$mentor->nim/";
+            $savePathDB = "/web_files/ttd/$mentor->nim/$filename";
+            $path = public_path()."$savePath";
+            $file->move($path,$filename);
+            $pathTTD = $savePathDB;
         }
 
 
@@ -180,6 +203,7 @@ class ProfileController extends Controller
         $mentor->is_lanjut=$request->is_lanjut;
         $mentor->path_rekening=$pathTabungan;
         $mentor->path_ktp=$pathKTP;
+        $mentor->path_ttd=$pathTTD;
         $mentor->path_ktm=$pathKTM;
         $mentor->save();
         
