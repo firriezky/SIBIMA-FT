@@ -108,7 +108,7 @@ class ProfileController extends Controller
         
         $pathKTM = $mentor->path_ktm;
         $pathKTP = $mentor->path_ktp;
-        $pathTTD = $mentor->path_ktp;
+        $pathTTD = $mentor->path_ttd;
         $pathTabungan = $mentor->path_rekening;
 
 
