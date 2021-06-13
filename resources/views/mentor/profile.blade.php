@@ -91,6 +91,12 @@
                     </div>
 
                     <div class="form-group">
+                      <label for="">Upload/Edit Tanda Tangan Mentor</label>
+                      <input type="file" class="form-control-file" name="photo_ttd" id="" placeholder="" aria-describedby="fileHelpId">
+                      <small id="fileHelpId" class="form-text text-muted">Foto Tanda Tangan Sesuai Buku Tabungan</small>
+                    </div>
+
+                    <div class="form-group">
                       <label for="">Upload/Edit Foto KTM</label>
                       <input type="file" class="form-control-file" name="photo_ktm" id="" placeholder="" aria-describedby="fileHelpId">
                       <small id="fileHelpId" class="form-text text-muted">Foto Kredensial KTM Mentor</small>
@@ -152,6 +158,15 @@
                             <td>KTM</td>
                             <td>
                                 <img class="card-img-top img-fluid" style=" border-radius:20px !important" src="{{ url('/') . Auth::guard('mentor')->user()->path_ktm }}"
+                                alt="Card image cap"
+                                onerror="this.src='http://www.pallenz.co.nz/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png'">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="row">3.</td>
+                            <td>Tanda Tangan Mentor</td>
+                            <td>
+                                <img class="card-img-top img-fluid" style=" border-radius:20px !important" src="{{ url('/') . Auth::guard('mentor')->user()->path_ttd }}"
                                 alt="Card image cap"
                                 onerror="this.src='http://www.pallenz.co.nz/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png'">
                             </td>
