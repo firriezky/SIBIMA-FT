@@ -2,6 +2,88 @@
 @section('title')
     Edit Profile
 @endsection
+
+
+@section('js_addon')
+    <script>
+        $(document).on('click', '.btn-gaji-mentor', function() {
+            let idGroup = $(this).attr("id");
+
+            $('#modal-gaji-mentor').modal('show');
+            document.getElementById("vgaji_idgroup").innerText = idGroup;
+
+
+            let csrf = $('meta[name="csrf-token"]').attr('content');
+
+            document.getElementById('formUploadGaji').action = window.location.origin + '/kelompok/' + idGroup +
+                '/updateGaji';
+            $.ajax({
+                url: window.location.origin + '/kelompok/' + idGroup + '/detailajax',
+                method: "GET",
+                data: {
+                    id: idGroup,
+                    '_token': csrf
+                },
+                beforeSend: function() {
+                    $('#loader').show();
+                },
+                complete: function() {
+                    $('#loader').hide();
+                },
+                error: function(ts) {
+                    alert("error bos");
+                    console.log(ts.responseText);
+                }, // or console.log(ts.responseText)
+                success: function(data) {
+                    console.log("responsez : ");
+                    console.log(data);
+                    let mType = data.ticket_type;
+                    let mAccountType = data.account_type;
+                    let ticketType = "Unknown Ticket Type";
+                    let accountType = "Unknown Account Type";
+
+                    var nim = data.nid;
+
+                    let mStatus = data.status;
+                    let statusAppend = "";
+
+                    document.getElementById('vgaji_nama_mentor').innerText = data.nama;
+                    document.getElementById("vgaji_rekening_mentor").innerText = data.no_rekening;
+                    document.getElementById("vgaji_kodegroup").innerText = data.kode;
+                    document.getElementById("vgaji_sender").value = data.pentransfer;
+                    document.getElementById("vgaji_total").value = data.jumlah_gaji;
+                    document.getElementById("vgaji_kelompok_id").value = data.id;
+
+					const imgURL = window.location.origin +data.path_transfer;
+					document.getElementById("vgaji_img_bukti").src = imgURL;
+
+                    let isGaji = data.status_gaji;
+                    switch (isGaji) {
+                        case "Sudah Digaji":
+                            document.getElementById("vgaji_status").options.selectedIndex = 0;
+                            break;
+                        case "Belum Digaji":
+                            document.getElementById("vgaji_status").options.selectedIndex = 1;
+                            break;
+                        case "Pending":
+                            document.getElementById("vgaji_status").options.selectedIndex = 2;
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    if (data.no_rekening == null) {
+                        document.getElementById("vgaji_rekening_mentor").innerText =
+                            "Mentor Belum Mengisi No Rekening";
+                    }
+                }
+            });
+        });
+    </script>
+@endsection
+
+
 @section('content')
     <nav class="breadcrumb">
         <a class="breadcrumb-item" href="{{ url('mentor/dashboard')}}">Dashboard</a>
@@ -67,6 +149,7 @@
 
 
     <div class="col-12">
+    
         <div class="card">
             <div class="card-block">
                 <form action="{{ url('mentor/update-cred') }}" method="post" enctype="multipart/form-data">
@@ -178,5 +261,82 @@
         </div>
     </div>
 
+      {{-- Modal Gaji Mentor --}}
+      <div class="modal fade" id="modal-gaji-mentor">
+        <div class="modal-dialog" role="document">
+            <form id="formUploadGaji" action="" method="post" enctype="multipart/form-data">
+                @csrf
 
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Gaji Mentor Kelompok</h4>
+                        <h5>Kode Kelompok : <span id="vgaji_kodegroup"></span></h5>
+                        <h5>ID Kelompok : <span id="vgaji_idgroup"></span></h5>
+                    </div>
+                    <form method="post" action="{{ url('admin/kelompok/change') }}/{{ $kelompok->id }}"
+                        enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <div class="modal-body">
+                            <input type="hidden" id="vgaji_kelompok_id" name="id">
+                            <div class="form-group">
+                                <label>Nama Mentor</label>
+                                <h5 id="vgaji_nama_mentor"></h5>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nomor Rekening Mentor</label>
+                                <h5 id="vgaji_rekening_mentor"></h5>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="">Status Gaji</label>
+                                <select class="form-control" name="vgaji_status" required id="vgaji_status">
+                                    <option value="Sudah Digaji">Sudah Digaji</option>
+                                    <option value="Belum Digaji">Belum Digaji</option>
+                                    <option value="Pending">Pending</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Nama Pihak Yang Mentransfer</label>
+                                <input type="text" class="form-control" name="vgaji_sender" id="vgaji_sender"
+                                    aria-describedby="helpId" placeholder="Pengirim Gaji">
+                                <small id="helpId" class="form-text text-muted">Nama Pengurus Yang Mengirim Gaji</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Jumlah Gaji</label>
+                                <input type="text" class="form-control" name="vgaji_total" id="vgaji_total"
+                                    aria-describedby="helpId" placeholder="Jumlah Gaji">
+                                <small id="helpId" class="form-text text-muted">Jumlah Gaji Yang Dikirim</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Upload/Edit Bukti Pembayaran</label>
+                                <input type="file" accept="image/*" class="form-control-file" name="vgaji_bukti"
+                                    id="vgaji_bukti" placeholder="" aria-describedby="fileHelpId">
+                                <small id="fileHelpId" class="form-text text-muted">Bukti Pembayaran</small>
+                            </div>
+
+                            <hr>
+                            <h3>Bukti Gaji </h3>
+                            <h6>(Jika sudah ditransfer akan muncul disini)</h6>
+                        
+                            <img id="vgaji_img_bukti" class="card-img-top img-fluid" style=" border-radius:20px !important" src=""
+                            alt="Card image cap"
+                            onerror="this.src='http://www.pallenz.co.nz/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png'">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Update Bukti Pembayaran</button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </form>
+        </div><!-- /.modal-dialog -->
+    </div>
 @endsection
