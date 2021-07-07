@@ -15,7 +15,7 @@ use Psy\Exception\ErrorException;
 use SebastianBergmann\CodeCoverage\Util;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
-
+use Exception;
 
 class KelompokController extends Controller
 {
@@ -25,24 +25,26 @@ class KelompokController extends Controller
         $search = $request->input('search');
         $jk = $request->input('jk');
 
-        if ($request->has('jk')){
+        if ($request->has('jk')) {
             $jk = $request->input('jk');
-            $list_kelompok = Kelompok::select('kelompok.*')
+            $list_kelompok = Kelompok::select('kelompok.*', 'm.no_rekening', 'm.nama', 'm.path_rekening', 'm.path_ktm', 'm.path_ktp')
                 ->leftJoin('mentor as mentor', 'mentor_id', 'mentor.id')
                 ->leftJoin('mentor as asisten', 'asisten_id', 'asisten.id')
                 ->where('type', '=', $jk)
-                ->whereRaw('(kode = ? or mentor.nama like ? or asisten.nama like ?)', [$search, '%'.$search.'%', '%'.$search.'%'])
+                ->whereRaw('(kode = ? or mentor.nama like ? or asisten.nama like ?)', [$search, '%' . $search . '%', '%' . $search . '%'])
                 ->paginate(10);
-
         } else {
-            $list_kelompok = Kelompok::select('kelompok.*')
+            $list_kelompok = Kelompok::select('kelompok.*', 'm.no_rekening', 'm.nama', 'm.path_rekening', 'm.path_ktm', 'm.path_ktp')
                 ->leftJoin('mentor as m', 'mentor_id', 'm.id')
                 ->leftJoin('mentor as a', 'asisten_id', 'a.id')
-                ->where('m.nama', 'like', '%'.$search.'%')
-                ->orWhere('a.nama', 'like', '%'.$search.'%')
+                ->where('m.nama', 'like', '%' . $search . '%')
+                ->orWhere('a.nama', 'like', '%' . $search . '%')
                 ->orWhere('kode', '=', $search)
                 ->paginate(10);
         }
+
+        // return $list_kelompok;
+
 
         return view('admin.kelompok.kelompok_list', [
             "list_kelompok" => $list_kelompok,
@@ -51,19 +53,28 @@ class KelompokController extends Controller
         ]);
     }
 
-    public function detailKelompok($id){
+    public function detailKelompok($id)
+    {
 
         $kelompok = Kelompok::find($id);
         if ($kelompok != null) {
             return view('admin.kelompok.kelompok_manage', [
                 "kelompok" => $kelompok
             ]);
-
         } else {
             flash("Kelompok Not Found", 'danger');
             return redirect(URL::previous());
         }
+    }
 
+    public function detailKelompokAjax($id)
+    {
+
+        $list_kelompok = Kelompok::select('kelompok.*', 'm.no_rekening', 'm.nama', 'm.path_rekening', 'm.path_ktm', 'm.path_ktp')
+            ->leftJoin('mentor as m', 'mentor_id', 'm.id')
+            ->leftJoin('mentor as a', 'asisten_id', 'a.id')
+            ->orWhere('kelompok.id', '=', $id)->first();
+        return $list_kelompok;
     }
 
     // Method Handling Kelompok Ikhwan
@@ -76,9 +87,9 @@ class KelompokController extends Controller
             ->get();
 
         // Use Eloquent for Calling Method
-//        $list_mentor = Mentor::select('id', 'nama', 'fakultas')
-//            ->where('jk', 1)
-//            ->get();
+        //        $list_mentor = Mentor::select('id', 'nama', 'fakultas')
+        //            ->where('jk', 1)
+        //            ->get();
 
         $list_mentor = Mentor::allMentorCounterMentor(1);
         $list_asisten = Mentor::allMentorCounterAsisten(1);
@@ -90,7 +101,8 @@ class KelompokController extends Controller
         ]);
     }
 
-    public function postCreateIkhwan(Request $request) {
+    public function postCreateIkhwan(Request $request)
+    {
 
         try {
             // Retrieve Data Input
@@ -98,7 +110,7 @@ class KelompokController extends Controller
             $asisten_id = intval($request->input('asisten'));
             $list_mentee = $request->input('mentee');
 
-            if ($mentor_id == $asisten_id){
+            if ($mentor_id == $asisten_id) {
                 flash('Asisten dan Mentor tidak boleh sama.', 'danger');
                 return redirect('admin/kelompok/create-ikhwan');
             }
@@ -125,18 +137,16 @@ class KelompokController extends Controller
             flash('Kelompok berhasil dibuat', 'success');
 
             return redirect('admin/kelompok/create-ikhwan');
-
         } catch (QueryException $qe) {
 
             flash('Kelompok gagal dibuat (tolong pilih mentor & mentee)', 'danger');
 
             return redirect('admin/kelompok/create-ikhwan');
-
         }
-
     }
 
-    public function apiGetKelas(Request $request){
+    public function apiGetKelas(Request $request)
+    {
 
         // FUCK OF QUERY - TODO : CHECK & UPGRADE PERFORMANCE
         $jurusan = $request->input('jurusan');
@@ -150,7 +160,8 @@ class KelompokController extends Controller
         return response()->json($kelas);
     }
 
-    public function apiGetMenteeIkhwan(Request $request){
+    public function apiGetMenteeIkhwan(Request $request)
+    {
 
         // FUCK OF QUERY - TODO : CHECK & UPGRADE PERFORMANCE
 
@@ -164,7 +175,6 @@ class KelompokController extends Controller
             ->get();
 
         return response()->json($mentee);
-
     }
 
     // Method Handling Kelompok Akhwat
@@ -177,9 +187,9 @@ class KelompokController extends Controller
             ->get();
 
         // Use Eloquent for Calling Method
-//        $list_mentor = Mentor::select('id', 'nama', 'fakultas')
-//            ->where('jk', 2)
-//            ->get();
+        //        $list_mentor = Mentor::select('id', 'nama', 'fakultas')
+        //            ->where('jk', 2)
+        //            ->get();
         $list_mentor = Mentor::allMentorCounterMentor(2);
         $list_asisten = Mentor::allMentorCounterAsisten(2);
 
@@ -191,7 +201,50 @@ class KelompokController extends Controller
         ]);
     }
 
-    public function postCreateAkhwat(Request $request) {
+    public function updateGaji(Request $request)
+    {
+        $kelompok = Kelompok::find($request->id);
+
+        $kelompok->status_gaji = $request->vgaji_status;
+        $kelompok->pentransfer = $request->vgaji_sender;
+        $kelompok->jumlah_gaji = $request->vgaji_total;
+
+
+        if ($request->hasFile('vgaji_bukti')) {
+            $file_path = public_path() . $kelompok->path_transfer;
+            if (file_exists($file_path)) {
+                try {
+                    unlink($file_path);
+                } catch (Exception $e) {
+                    // Do Nothing
+                }
+            }
+
+            $file = $request->file('vgaji_bukti');
+            $extension = $file->getClientOriginalExtension(); // you can also use file name
+            $fileName = $kelompok->id . '.' . $extension;
+
+            $savePath = "/web_files/bukti_tf/$kelompok->id/";
+            $savePathDB = "/web_files/bukti_tf/$kelompok->id/$fileName";
+            $path = public_path() . "$savePath";
+            $upload = $file->move($path, $fileName);
+
+            $kelompok->path_transfer = $savePathDB;
+        }
+
+        $kelompok->save();
+
+        if ($kelompok) {
+            flash('Berhasil Mengupdate Data Gaji Kelompok', 'success');
+            return back()->with(["success" => "Berhasil Mengupdate Data Gaji Kelompok"]);
+        } else {
+            flash('Gagal Mengupdate Data Gaji Kelompok', 'danger');
+            return back()->with(["error" => "Gagal Mengupdate Data Gaji Kelompok"]);
+        }
+    }
+
+    public function postCreateAkhwat(Request $request)
+    {
 
         try {
             // Retrieve Data Input
@@ -199,14 +252,14 @@ class KelompokController extends Controller
             $asisten_id = intval($request->input('asisten'));
             $list_mentee = $request->input('mentee');
 
-            if ($mentor_id == $asisten_id){
+            if ($mentor_id == $asisten_id) {
                 flash('Asisten dan Mentor tidak boleh sama.', 'danger');
                 return redirect('admin/kelompok/create-akhwat');
             }
 
             $new_kelompok = new Kelompok();
             $new_kelompok->mentor_id = $mentor_id;
-            if($asisten_id != 0){
+            if ($asisten_id != 0) {
                 $new_kelompok->asisten_id = $asisten_id;
             }
 
@@ -226,17 +279,16 @@ class KelompokController extends Controller
             flash('Kelompok berhasil dibuat', 'success');
 
             return redirect('admin/kelompok/create-akhwat');
-
         } catch (QueryException $qe) {
 
             flash('Kelompok gagal dibuat (tolong pilih mentor & mentee)', 'danger');
 
             return redirect('admin/kelompok/create-akhwat');
-
         }
     }
 
-    public function apiGetMenteeAkhwat(Request $request){
+    public function apiGetMenteeAkhwat(Request $request)
+    {
 
         // FUCK OF QUERY - TODO : CHECK & UPGRADE PERFORMANCE
 
@@ -249,23 +301,23 @@ class KelompokController extends Controller
             ->orderBy('nim', 'asc')
             ->get();
 
-//        print_r($mentee);
-//        sleep(1);
+        //        print_r($mentee);
+        //        sleep(1);
         return response()->json($mentee);
-
     }
 
     // Validasi Kelompok
-    public function validasi(){
+    public function validasi()
+    {
         $mentee_belum_berkelompok = Mentee::where('kelompok_id', null)
             ->select('nim', 'nama', 'kelas', 'jk')
             ->paginate(50);
 
-            $menteeCount = Mentee::where('kelompok_id', null)
+        $menteeCount = Mentee::where('kelompok_id', null)
             ->select('nim', 'nama', 'kelas', 'jk')
             ->count();
 
-            $mentorCount = DB::table('mentor')
+        $mentorCount = DB::table('mentor')
             ->select('mentor.nama', 'mentor.nim', 'mentor.fakultas', 'mentor.jk')
             ->leftJoin('kelompok', 'mentor.id', 'kelompok.mentor_id')
             ->where('kelompok.mentor_id', null)
@@ -285,19 +337,20 @@ class KelompokController extends Controller
         ]);
     }
 
-    public function deleteKelompok($id){
+    public function deleteKelompok($id)
+    {
         Kelompok::destroy($id);
         flash('Kelompok Berhasil di Hapus', 'success');
         return redirect('admin/kelompok');
     }
-    
-    public function removeMentee($id_mentee){
+
+    public function removeMentee($id_mentee)
+    {
         $mentee = Mentee::find($id_mentee);
         if ($mentee != null) {
             $mentee->kelompok_id = null;
             $mentee->save();
             flash('Mentee berhasil dihapus dari Kelompok', 'success');
-
         } else {
             flash('Mentee not found', 'danger');
         }
@@ -307,31 +360,27 @@ class KelompokController extends Controller
         return redirect(URL::previous());
     }
 
-    public function addMentee($id, Request $request){
+    public function addMentee($id, Request $request)
+    {
         $mentee = Mentee::where('nim', $request->input('nim'))->first();
 
         $kelompok = Kelompok::find($id);
 
-        if ($mentee != null && $kelompok != null){
+        if ($mentee != null && $kelompok != null) {
 
-            if ($mentee->kelompok_id == null){
+            if ($mentee->kelompok_id == null) {
 
-                if ($mentee->jk == $kelompok->type){
+                if ($mentee->jk == $kelompok->type) {
 
                     $mentee->kelompok_id = $id;
                     $mentee->save();
                     flash('Mentee berhasil ditambahkan ke Kelompok', 'success');
-
                 } else {
                     flash('JK mentee tidak sesuai dengan Tipe Kelompok', 'danger');
-
                 }
-
             } else {
                 flash('Mentee tersebut berada di kelompok lain, harap remove dulu', 'warning');
             }
-
-
         } else {
             flash('FAILED, Mentee dengan NIM yang diinput tidak ditemukan / Kelompok Not Found', 'danger');
         }
@@ -339,41 +388,38 @@ class KelompokController extends Controller
         return redirect(URL::previous());
     }
 
-    public function changeMentorOrAsisten(Request $request, $id){
-        
+    public function changeMentorOrAsisten(Request $request, $id)
+    {
+
         $kelompok = Kelompok::find($id);
 
-        if ($kelompok == null){
+        if ($kelompok == null) {
             flash("Kelompok not found", "danger");
             return redirect(URL::previous());
         }
 
-        if ($request->has('mentor_nim')){
+        if ($request->has('mentor_nim')) {
 
             $mentor = Mentor::where('nim', $request->input('mentor_nim'))->first();
-            if ($mentor == null){
+            if ($mentor == null) {
                 flash('NIM Mentor yang diinput tidak ditemukan', 'danger');
                 return redirect(URL::previous());
             } else {
 
-                if ($mentor->jk != $kelompok->type){
+                if ($mentor->jk != $kelompok->type) {
                     flash('Mentor dan Anggota Kelompok tidak boleh bebeda JK', 'danger');
                     return redirect(URL::previous());
-
                 } else {
                     $kelompok->mentor_id = $mentor->id;
                     $kelompok->save();
                     flash('Pergantian Mentor Berhasil', 'success');
                     return redirect(URL::previous());
-
                 }
-
             }
-
-        } elseif ($request->has('asisten_nim')){
+        } elseif ($request->has('asisten_nim')) {
 
             $asisten = Mentor::where('nim', $request->input('asisten_nim'))->first();
-            if ($asisten == null){
+            if ($asisten == null) {
                 flash('NIM Asisten yang diinput tidak ditemukan', 'danger');
                 return redirect(URL::previous());
             } else {
@@ -388,15 +434,14 @@ class KelompokController extends Controller
                     return redirect(URL::previous());
                 }
             }
-
-
         } else {
             return redirect(URL::previous());
         }
     }
-    
+
     //*** Export Kelompok to Excel***
-    public function buildHeaderKelompok(){
+    public function buildHeaderKelompok()
+    {
         $header = ['Kelompok', 'NIM', 'Nama', 'JK', 'Kelas', 'Prodi', 'No_HP'];
         //add header Mentor
         array_push($header, 'Mentor');
@@ -407,12 +452,13 @@ class KelompokController extends Controller
         return $header;
     }
 
-    public function buildRowKelompok($mentee){
+    public function buildRowKelompok($mentee)
+    {
         $row = array();
 
         //Add kelompok column
         $kelompok = $mentee->getKelompok;
-        if($kelompok == null) array_push($row, "NULL");
+        if ($kelompok == null) array_push($row, "NULL");
         else array_push($row, $kelompok->kode);
 
         //Add data diri column(Nim, nama, jk, kelas)
@@ -430,7 +476,7 @@ class KelompokController extends Controller
 
         //Add Asisten column
         $asisten = $kelompok->getAsisten;
-        if ($asisten != null){
+        if ($asisten != null) {
             array_push($row, $asisten->nama);
             array_push($row, $asisten->no_telp . " " . $asisten->line_id);
         } else {
@@ -441,7 +487,8 @@ class KelompokController extends Controller
         return $row;
     }
 
-    public function exportKelompok(){
+    public function exportKelompok()
+    {
         $list_prodi = DB::table('mentee')
             ->select('program_studi')
             ->distinct()->get();
@@ -456,13 +503,14 @@ class KelompokController extends Controller
         ]);
     }
 
-    public function exportData(Request $request){
+    public function exportData(Request $request)
+    {
         $jk = $request->input('jk');
 
-        if($jk == 1) {
+        if ($jk == 1) {
             $list_kelompok = Kelompok::where('type', 1)->get();
             $jenis = "Ikhwan";
-        } else if($jk == 2) {
+        } else if ($jk == 2) {
             $list_kelompok = Kelompok::where('type', 2)->get();
             $jenis = "Akhwat";
         } else {
@@ -473,30 +521,29 @@ class KelompokController extends Controller
         //data that will insert to the sheet
         $data = array();
 
-        if($request->has('fakultas')){
+        if ($request->has('fakultas')) {
             $query = $request->input('fakultas');
 
-            foreach($list_kelompok as $kelompok){
+            foreach ($list_kelompok as $kelompok) {
                 $mentees = $kelompok->getMentee()
-                                ->where('fakultas', $query)
-                                ->orderBy('kelas','asc')
-                                ->get();
+                    ->where('fakultas', $query)
+                    ->orderBy('kelas', 'asc')
+                    ->get();
                 //make mentee row with the same fakultas
-                foreach($mentees as $mentee){
+                foreach ($mentees as $mentee) {
                     $row = $this->buildRowKelompok($mentee);
                     array_push($data, $row);
                 }
             }
-        }
-        else if($request->has('prodi')){
+        } else if ($request->has('prodi')) {
             $query = $request->input('prodi');
-            foreach($list_kelompok as $kelompok){
+            foreach ($list_kelompok as $kelompok) {
                 $mentees = $kelompok->getMentee()
-                                ->where('program_studi', $query)
-                                ->orderBy('kelas', 'asc')
-                                ->get();
+                    ->where('program_studi', $query)
+                    ->orderBy('kelas', 'asc')
+                    ->get();
                 //make mentee row with the same prodi
-                foreach($mentees as $mentee){
+                foreach ($mentees as $mentee) {
                     $row = $this->buildRowKelompok($mentee);
                     array_push($data, $row);
                 }
@@ -504,9 +551,10 @@ class KelompokController extends Controller
         }
 
         //Export to Excel
-        Excel::create('kelompok_' . strtolower($query) . "_" . strtolower($jenis) . "_" . Carbon::now()->toDateString(),
-            function($excel) use ($data){
-                $excel->sheet('Sheetname', function($sheet) use ($data){
+        Excel::create(
+            'kelompok_' . strtolower($query) . "_" . strtolower($jenis) . "_" . Carbon::now()->toDateString(),
+            function ($excel) use ($data) {
+                $excel->sheet('Sheetname', function ($sheet) use ($data) {
 
                     //overwrite header
                     $sheet->fromArray($data);
@@ -514,13 +562,14 @@ class KelompokController extends Controller
                     //overwrite header
                     $header = $this->buildHeaderKelompok();
                     $sheet->row(1, $header);
-
-            });
-        })->export('xlsx');
+                });
+            }
+        )->export('xlsx');
     }
-    
+
     // Generate Kelompok
-    public function generate(Request $request){
+    public function generate(Request $request)
+    {
 
         // Retrieve Query Data
         $fakultas_mentee = $request->input('fakultas_mentee');
@@ -528,8 +577,10 @@ class KelompokController extends Controller
         $batas = $request->input('batas');
         $jk = $request->input('jk');
 
-        if ($request->has('fakultas_mentee') && $request->has('fakultas_mentor')
-            && $request->has('jk') && $request->has('batas')){
+        if (
+            $request->has('fakultas_mentee') && $request->has('fakultas_mentor')
+            && $request->has('jk') && $request->has('batas')
+        ) {
 
             $list_mentee = Mentee::where('jk', $jk)
                 ->where('kelompok_id', null)
@@ -537,7 +588,7 @@ class KelompokController extends Controller
                 ->orderBy('kelas')
                 ->get();
 
-            $list_mentor = Mentor::where('jk',$jk)
+            $list_mentor = Mentor::where('jk', $jk)
                 ->where('fakultas', $fakultas_mentor)
                 ->get();
 
@@ -549,11 +600,10 @@ class KelompokController extends Controller
             $kelompok = new Kelompok();
             $kelompok->mentor_id = $list_mentor[$iter_mentor]->id;
             $iter_mentor++;
-            if ($jk == 1){
+            if ($jk == 1) {
                 $id_kelompok = DB::table('kelompok_it')->insertGetId([]);
                 $kelompok->kode = "IT-" . $id_kelompok;
                 $kelompok->type = 1;
-
             } else {
                 $id_kelompok = DB::table('kelompok_at')->insertGetId([]);
                 $kelompok->kode = "AT-" . $id_kelompok;
@@ -561,32 +611,29 @@ class KelompokController extends Controller
             }
             $kelompok->save();
 
-            foreach ($list_mentee as $mentee){
+            foreach ($list_mentee as $mentee) {
 
                 // Jika Melebihi batas kelompok
                 // maka buat kelompok baru
-                if ($iter_mentee >= $batas){
-                    
+                if ($iter_mentee >= $batas) {
+
                     // Build Kelompok
                     $kelompok = new Kelompok();
                     $kelompok->mentor_id = $list_mentor[$iter_mentor]->id;
                     $iter_mentor++;
-                    
-                    if ($jk == 1){
+
+                    if ($jk == 1) {
                         $id_kelompok = DB::table('kelompok_it')->insertGetId([]);
                         $kelompok->kode = "IT-" . $id_kelompok;
                         $kelompok->type = 1;
-
                     } else {
                         $id_kelompok = DB::table('kelompok_at')->insertGetId([]);
                         $kelompok->kode = "AT-" . $id_kelompok;
                         $kelompok->type = 2;
-
                     }
 
                     $kelompok->save();
                     $iter_mentee = 0;
-
                 }
 
                 $mentee->kelompok_id = $kelompok->id;
@@ -595,15 +642,13 @@ class KelompokController extends Controller
 
                 // Jika mentor sudah semua berkelompok
                 // maka re-assign kembali mentor sebelumnya
-                if ($iter_mentor >= $max_mentor){
+                if ($iter_mentor >= $max_mentor) {
                     $iter_mentor = 0;
                 }
-
             }
 
             flash("Kelompok has been successfullly generate", 'success');
             return redirect('admin/kelompok/generate');
-
         } else {
 
             $list_fakultas_mentee = DB::table('mentee')
@@ -624,9 +669,9 @@ class KelompokController extends Controller
         }
     }
 
-    public function processGenerate(Request $request){
+    public function processGenerate(Request $request)
+    {
 
         $fakultas = $request->input('fakultas');
-
     }
 }

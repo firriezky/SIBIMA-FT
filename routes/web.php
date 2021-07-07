@@ -21,6 +21,11 @@ Route::get('/dsc', 'MonitoringController@view');
 Route::get('/dsc/{id}', 'MonitoringController@viewByID');
 Route::get('/dsc/report/all', 'MonitoringController@viewReport');
 Route::get('/dsc/report/detail/{id}', 'MonitoringController@viewReportDetail');
+Route::get('/dsc/penggajian/all', 'MonitoringController@viewPenggajian');
+
+Route::get('/kelompok/{id}/detailajax', 'Admin\KelompokController@detailKelompokAJAX');
+Route::post('/kelompok/{id}/updateGaji', 'Admin\KelompokController@updateGaji');
+
 
 Route::get('/mentors', 'Mentor\ProfileController@getData')->name("getData");
 Route::get('/mentors/export', 'Mentor\ProfileController@export_excel')->name('export_mentor_excel');

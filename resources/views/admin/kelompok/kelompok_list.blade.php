@@ -17,7 +17,7 @@
 
 		<div class="col-md-12">
 			<div class="card card-block">
-				<h4 class="card-title">Daftar Kelompok</h4>
+				<h4 class="card-title">Daftar Kelompok Mentoring</h4>
 				<hr>
 
 				{{-- Filter & Search Row --}}
@@ -57,9 +57,12 @@
 						<thead>
 						<tr>
 							<th>No</th>
-							<th>Kode</th>
+							<th>Kode Kelompok</th>
 							<th>Mentor</th>
 							<th>Asisten</th>
+							<th>Rekening Mentor</th>
+							<th>Status Gaji</th>
+							<th>Bukti Gaji</th>
 							<th>Total Mentee</th>
 							<th style="text-align: center">Aksi</th>
 						</tr>
@@ -73,6 +76,24 @@
 								<td>{{ $kelompok->kode }}</td>
 								<td>{{ $kelompok->getMentor->nama }}</td>
 								<td>{{ $kelompok->getAsisten->nama or "-"}}</td>
+								<td>{{ $kelompok->no_rekening}}</td>
+								<td style="text-align: center">
+									@if ($kelompok->status_gaji==null)
+									<button class="btn btn-danger btn-sm">Belum Digaji</button>
+									@endif
+									@if ($kelompok->status_gaji=="Sudah Digaji")
+									<button class="btn btn-success btn-sm">{{$kelompok->status_gaji}}</button>
+									@endif
+									@if ($kelompok->status_gaji=="Belum Digaji")
+									<button class="btn btn-warning btn-sm">{{$kelompok->status_gaji}}</button>
+									@endif
+									@if ($kelompok->status_gaji=="Pending")
+									<button class="btn btn-warning btn-sm">{{$kelompok->status_gaji}}</button>
+									@endif
+								</td>
+								<td style="text-align: center">
+									<a href="{{ url('admin/kelompok/') }}/{{ $kelompok->id }}" class="btn btn-primary btn-md">Edit/Upload Gaji</a>
+								</td>
 								<td>{{ count($kelompok->getMentee) }}</td>
 								<td style="text-align: center">
 									<a href="{{ url('admin/kelompok/') }}/{{ $kelompok->id }}" class="btn btn-primary btn-sm">Manage</a>
