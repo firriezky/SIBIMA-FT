@@ -29,7 +29,7 @@ class AddRekeningAndCredentialForMentor extends Migration
      */
     public function down()
     {
-        Schema::table('berita_mentoring', function (Blueprint $table) {
+        Schema::table('mentor', function (Blueprint $table) {
             $table->dropColumn('no_rekening');
             $table->dropColumn('path_ktp');
             $table->dropColumn('path_ktm');
