@@ -61,61 +61,8 @@
         {{-- //Ramadhan Prada 2021  --}}
         <div class="col-md-12">
             <div class="card" style="width: 100%">
-                <img class="" width="100%" src="{{ url('/sembako_igracias.jpg') }}" alt="Card image cap">
+                <img class="" width="100%" src="{{ url('/img/sapa_pemuda.jpg') }}" alt="Card image cap">
                 <div class="card-body" style="padding: 10px">
-                    <h4 class="card-title">Hadiahkan Paket Sembako Ramadhan</h4>
-                    <br>
-                    <h5 class="card-text">
-                        1 Minggu lagi Tamu Istimewa akan datang
-                        Ramadhan akan membawa hadiah dan keberkahan untuk kita semua
-                        Pastikan bahagia dan telah menyiapkan diri untuk perbanyak amalan
-                        Mari hadiahkan 1.000 Paket Sembako untuk warga yang membutuhkan
-                        karna setiap kebaikan di Bulan Ramadhan akan dilipatgandakan pahalanya
-                        <br><br>
-                        <strong> 1 paket hanya Rp. 75,000 saja </strong>
-                        Yuk tunggu apalagi
-                        <br><br>
-                        www.lazissu.com <br>
-                        @lazissu <br>
-                        wa.me/6281314918127
-                        <br><br>
-                        Raih Kelengkapan Berkah di Bulan Ramadhan dengan Bersedekah <br><br>
-                        <br>
-                        Alhamdulillah... <br>
-                        Hingga 6 April 2021 (H-7 Ramadhan) telah terkumpul : <br>
-                        🥪 2.233 Paket Berbagi Buka (Setiap paketnya senilai Rp 20.000), di Targetkan 30.000 Paket Sekotak
-                        Nasi disalurkan hingga 30 Ramadhan <br>
-                        🎁 152 Paket Berbagi Sembako (Setiap paketnya senilai Rp 75.000), di Targetkan 1.000 Paket Berbagi
-                        Sembako <br>
-                        <br>
-                        📬 Penyaluran bantuan untuk warga dhuafa di 8 Desa Sekitar Kampus Telkom, Kabupaten Bandung
-                        <br> <br> <br>
-
-                        Amankan Peluang anda dengan SEGERA BOOKING dan TRANSFER Donasi ke...  <br>
-                        Rekening LAZIS Syamsul Ulum <br>
-                        Rekening Bank Syariah Mandiri <br>
-                        (kode bank 451) <br>
-                        7137664447 <br>
-                        a.n. LAZIS SYAMSUL ULUM <br>
-                        <br>
-                        Rekening Bank Mandiri
-                        (kode bank 008)
-                        131-00-1546633-9
-                        a.n. LEMBAGA AMIL ZAKAT (LAZIS) SYAMSUL ULUM
-                        <br>
-                        Kirim bukti transfer klik aja wa.me/6281314918127 (admin Lazissu) 
-                        <br>
-                        “Siapa memberi makan orang yang berpuasa, maka baginya pahala seperti orang yang berpuasa tersebut,
-                        tanpa mengurangi pahala orang yang berpuasa itu sedikit pun juga.”
-                        <br>
-                        #DKMSyamsululum
-                        #LDKAlfath
-                        #BMUniversitasTelkom
-                        #MQMSU
-                        #PRISMA
-                        #LAZISSU
-                    </h5>
-                
                 </div>
             </div>
         </div>

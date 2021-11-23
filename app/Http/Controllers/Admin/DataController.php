@@ -332,6 +332,7 @@ class DataController extends Controller
                 return Utility::response_js('Data Processing Success');
 
             } catch (QueryException $qe){
+                return $qe;
                 return Utility::response_js('Already Upload / Duplicate Data / Wrong Format Data');
             } catch (\Exception $qe) {
                 return Utility::response_js('File Unrecognized');
